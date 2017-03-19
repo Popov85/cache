@@ -9,8 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class LoadEmulator extends Thread {
 
-        public static ConcurrentHashMap<String, Long> timing = new ConcurrentHashMap<>();
-
         @Override
         public void run() {
                 try {
@@ -21,9 +19,12 @@ public class LoadEmulator extends Thread {
         }
 
         private void startSession() {
-              // New User arrived
-                User user = new User(200, 1l);
-                user.randomize();
+                // New User arrived
+                // x - quantity of randomly selected questions per theme
+                // y - scenario ID
+                User user = new User(50, 1l);
+                // z - total number of randomised question in the user's scenario
+                user.randomize(50*ContainerComposite.getCache().get(1).get(1).size());
                 user.goThrough();
         }
 }

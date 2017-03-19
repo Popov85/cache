@@ -42,8 +42,8 @@ public class Question {
         public String toString() {
                 return "Question{" +
                         "id=" + id +
-                        ", question='" + question + '\'' +
-                        ", answer='" + answer + '\'' +
+                        //", question='" + question + '\'' +
+                        //", answer='" + answer + '\'' +
                         '}';
         }
 }

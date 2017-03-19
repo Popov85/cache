@@ -1,9 +1,6 @@
 package test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Andrey on 17.03.2017.
@@ -11,7 +8,7 @@ import java.util.List;
 public class User {
         private int n;
         private Long scenario;
-        private List<Question> questions;
+        private Set<Question> questions;
 
         public User(int quantity, Long scenario) {
                 this.n = quantity;
@@ -34,37 +31,30 @@ public class User {
                 this.scenario = scenario;
         }
 
-        public List<Question> getQuestions() {
+        public Set<Question> getQuestions() {
                 return questions;
         }
 
-        public void setQuestions(List<Question> questions) {
+        public void setQuestions(Set<Question> questions) {
                 this.questions = questions;
         }
 
-        public void randomize() {
-                long startCopyTime = System.currentTimeMillis();
-                List<Question> copy = new LinkedList<Question>(Container.getCache().get(1));
-                long endCopyTime = System.currentTimeMillis();
-                long totalCopyTime = endCopyTime - startCopyTime;
-                System.out.println("Copying: "+totalCopyTime+" ms"+" User: "+this);
-
+        public void randomize(Integer m) {
                 long startShuffleTime = System.currentTimeMillis();
-                Collections.shuffle(copy);
-                questions = copy.subList(0, n);
+                questions = FloydShuffler.shuffleComposite(ContainerComposite.getCache().get(1), n, m);
+                //questions = FloydShuffler.shuffle(Container.getCache().get(1), n);
                 long endShuffleTime = System.currentTimeMillis();
                 long totalShuffleTime = endShuffleTime - startShuffleTime;
-                System.out.println("Shuffle: "+totalShuffleTime+" ms"+" User: "+this);
-
-                // Save time to list
-                LoadEmulator.timing.put(Thread.currentThread().getName(), totalShuffleTime);
+                System.out.println("Shuffle: " + totalShuffleTime + " ms" + " User: " + this);
         }
         
         public void goThrough() {
+                /*System.out.println("User: "+this);
+                StringBuilder sb = new StringBuilder();
                 for (Question question : questions) {
-                        //System.out.println("User: "+this);
-                        //System.out.println("Question: "+question);
+                        sb.append(question).append(" | ");
                 }
+                System.out.println(sb.toString());*/
         }
 
         @Override

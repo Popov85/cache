@@ -19,8 +19,8 @@ public final class Container {
                 Container.cache = cache;
         }
 
-        public static void addScenario(Integer key, List<Question> question) {
-                Container.cache.put(key, question);
+        public static void addScenario(Integer key, List<Question> questions) {
+                Container.cache.put(key, questions);
         }
 
         public static void removeScenario(Integer key) {
